@@ -21,9 +21,9 @@ class PiecesCreator {
         for x in CGFloat(0).stride(through: size.width, by: width) {
             for y in CGFloat(0).stride(through: size.height, by: height) {
                 let pieceRegion = CGRect(x: x, y: y , width: min(width, size.width - x), height: min(height, size.height - y))
-                let pieceView = fromViewSnapshot.resizableSnapshotViewFromRect(pieceRegion, afterScreenUpdates: false, withCapInsets: UIEdgeInsetsZero)
-                pieceView.frame = pieceRegion
-                let piece = Piece(pieceView: pieceView)
+                let pieceView = fromViewSnapshot!.resizableSnapshotViewFromRect(pieceRegion, afterScreenUpdates: false, withCapInsets: UIEdgeInsetsZero)
+                pieceView!.frame = pieceRegion
+                let piece = Piece(pieceView: pieceView!)
                 piece.corner = PiecePositioner.cornerForPosition(piece.originalPosition, inRect: view.bounds)
                 pieces.append(piece)
             }

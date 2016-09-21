@@ -15,7 +15,7 @@ protocol PieceAnimator {
     func removeAnimationFromPieces(pieces: [Piece])
 }
 
-class AbstractPieceAnimator: NSObject {
+class AbstractPieceAnimator: NSObject, CAAnimationDelegate {
 
     private let basicForwardPieceAnimationKey = "com.antondomashnev.PuzzleAnimation.basicForwardPieceAnimationKey"
     private let basicBackwardPieceAnimationKey = "com.antondomashnev.PuzzleAnimation.basicBackwardPieceAnimationKey"
@@ -32,7 +32,7 @@ class AbstractPieceAnimator: NSObject {
     
     //MARK: - CAAnimationDelegate
     
-    override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+    func animationDidStop(anim: CAAnimation, finished flag: Bool) {
         if flag {
             self.runningAnimationsCount = max(0, self.runningAnimationsCount - 1)
             if self.runningAnimationsCount == 0 {
