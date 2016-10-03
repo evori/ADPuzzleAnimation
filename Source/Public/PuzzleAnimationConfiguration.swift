@@ -26,12 +26,12 @@ public let defaultForwardPieceGroupAnimationDelay = PuzzleAnimationDelay(minimum
  */
 public struct PuzzleAnimationDelay {
     /// Defines the minimum delay between each group of pieces animation
-    public var minimumDelay: NSTimeInterval = 1
+    public var minimumDelay: TimeInterval = 1
     
     /// Defines the minimum delay between each group of pieces animation
-    public var maximumDelay: NSTimeInterval = 1
+    public var maximumDelay: TimeInterval = 1
     
-    public init(minimumDelay: NSTimeInterval = 1, maximumDelay: NSTimeInterval = 1) {
+    public init(minimumDelay: TimeInterval = 1, maximumDelay: TimeInterval = 1) {
         self.minimumDelay = minimumDelay
         self.maximumDelay = maximumDelay
     }

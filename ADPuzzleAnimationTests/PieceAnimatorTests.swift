@@ -14,9 +14,9 @@ import Nimble
 class PieceAnimatorTests: XCTestCase {
     
     func testThatItShouldAddForwardAnimationForEachPiecesViewOnAddForwardAnimationForPieces() {
-        let view1 = UIView(frame: CGRectZero)
-        let view2 = UIView(frame: CGRectZero)
-        let view3 = UIView(frame: CGRectZero)
+        let view1 = UIView(frame: CGRect.zero)
+        let view2 = UIView(frame: CGRect.zero)
+        let view3 = UIView(frame: CGRect.zero)
         let piece1 = Piece(pieceView: view1)
         let piece2 = Piece(pieceView: view2)
         let piece3 = Piece(pieceView: view3)
@@ -38,9 +38,9 @@ class PieceAnimatorTests: XCTestCase {
     }
     
     func testThatItShouldRemoveForwardAnimationFromEachPiecesViewOnRemoveForwardAnimationFromPieces() {
-        let view1 = UIView(frame: CGRectZero)
-        let view2 = UIView(frame: CGRectZero)
-        let view3 = UIView(frame: CGRectZero)
+        let view1 = UIView(frame: CGRect.zero)
+        let view2 = UIView(frame: CGRect.zero)
+        let view3 = UIView(frame: CGRect.zero)
         let piece1 = Piece(pieceView: view1)
         let piece2 = Piece(pieceView: view2)
         let piece3 = Piece(pieceView: view3)
@@ -48,9 +48,9 @@ class PieceAnimatorTests: XCTestCase {
         let animation2 = CAAnimation()
         let animation3 = CAAnimation()
         
-        view1.layer.addAnimation(animation1, forKey: "com.antondomashnev.PuzzleAnimation.basicForwardPieceAnimationKey")
-        view2.layer.addAnimation(animation2, forKey: "com.antondomashnev.PuzzleAnimation.basicForwardPieceAnimationKey")
-        view3.layer.addAnimation(animation3, forKey: "com.antondomashnev.PuzzleAnimation.basicForwardPieceAnimationKey")
+        view1.layer.add(animation1, forKey: "com.antondomashnev.PuzzleAnimation.basicForwardPieceAnimationKey")
+        view2.layer.add(animation2, forKey: "com.antondomashnev.PuzzleAnimation.basicForwardPieceAnimationKey")
+        view3.layer.add(animation3, forKey: "com.antondomashnev.PuzzleAnimation.basicForwardPieceAnimationKey")
         
         let configuration = PuzzleAnimationConfiguration()
         
@@ -63,9 +63,9 @@ class PieceAnimatorTests: XCTestCase {
     }
     
     func testThatItShouldAddBackwardAnimationForEachPiecesViewOnAddForwardAnimationForPieces() {
-        let view1 = UIView(frame: CGRectZero)
-        let view2 = UIView(frame: CGRectZero)
-        let view3 = UIView(frame: CGRectZero)
+        let view1 = UIView(frame: CGRect.zero)
+        let view2 = UIView(frame: CGRect.zero)
+        let view3 = UIView(frame: CGRect.zero)
         let piece1 = Piece(pieceView: view1)
         let piece2 = Piece(pieceView: view2)
         let piece3 = Piece(pieceView: view3)
@@ -87,9 +87,9 @@ class PieceAnimatorTests: XCTestCase {
     }
     
     func testThatItShouldRemoveBackwardAnimationFromEachPiecesViewOnRemoveForwardAnimationFromPieces() {
-        let view1 = UIView(frame: CGRectZero)
-        let view2 = UIView(frame: CGRectZero)
-        let view3 = UIView(frame: CGRectZero)
+        let view1 = UIView(frame: CGRect.zero)
+        let view2 = UIView(frame: CGRect.zero)
+        let view3 = UIView(frame: CGRect.zero)
         let piece1 = Piece(pieceView: view1)
         let piece2 = Piece(pieceView: view2)
         let piece3 = Piece(pieceView: view3)
@@ -97,9 +97,9 @@ class PieceAnimatorTests: XCTestCase {
         let animation2 = CAAnimation()
         let animation3 = CAAnimation()
         
-        view1.layer.addAnimation(animation1, forKey: "com.antondomashnev.PuzzleAnimation.basicBackwardPieceAnimationKey")
-        view2.layer.addAnimation(animation2, forKey: "com.antondomashnev.PuzzleAnimation.basicBackwardPieceAnimationKey")
-        view3.layer.addAnimation(animation3, forKey: "com.antondomashnev.PuzzleAnimation.basicBackwardPieceAnimationKey")
+        view1.layer.add(animation1, forKey: "com.antondomashnev.PuzzleAnimation.basicBackwardPieceAnimationKey")
+        view2.layer.add(animation2, forKey: "com.antondomashnev.PuzzleAnimation.basicBackwardPieceAnimationKey")
+        view3.layer.add(animation3, forKey: "com.antondomashnev.PuzzleAnimation.basicBackwardPieceAnimationKey")
         
         let configuration = PuzzleAnimationConfiguration()
         

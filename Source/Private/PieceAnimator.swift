@@ -8,19 +8,19 @@
 
 import UIKit
 
-typealias PieceAnimatorCompletion = ((finished: Bool) -> Void)
+typealias PieceAnimatorCompletion = ((_ finished: Bool) -> Void)
 
 protocol PieceAnimator {
-    func addAnimationForPieces(pieces: [Piece], completion: PieceAnimatorCompletion?)
-    func removeAnimationFromPieces(pieces: [Piece])
+    func addAnimationForPieces(_ pieces: [Piece], completion: PieceAnimatorCompletion?)
+    func removeAnimationFromPieces(_ pieces: [Piece])
 }
 
 class AbstractPieceAnimator: NSObject, CAAnimationDelegate {
 
-    private let basicForwardPieceAnimationKey = "com.antondomashnev.PuzzleAnimation.basicForwardPieceAnimationKey"
-    private let basicBackwardPieceAnimationKey = "com.antondomashnev.PuzzleAnimation.basicBackwardPieceAnimationKey"
+    fileprivate let basicForwardPieceAnimationKey = "com.antondomashnev.PuzzleAnimation.basicForwardPieceAnimationKey"
+    fileprivate let basicBackwardPieceAnimationKey = "com.antondomashnev.PuzzleAnimation.basicBackwardPieceAnimationKey"
     
-    private let configuration: PuzzleAnimationConfiguration
+    fileprivate let configuration: PuzzleAnimationConfiguration
     
     internal var runningAnimationsCount = 0
     internal var animationCompletion: PieceAnimatorCompletion?
@@ -32,16 +32,16 @@ class AbstractPieceAnimator: NSObject, CAAnimationDelegate {
     
     //MARK: - CAAnimationDelegate
     
-    func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if flag {
             self.runningAnimationsCount = max(0, self.runningAnimationsCount - 1)
             if self.runningAnimationsCount == 0 {
-                self.animationCompletion?(finished: true)
+                self.animationCompletion?(true)
                 self.animationCompletion = nil
             }
         }
         else {
-            self.animationCompletion?(finished: false)
+            self.animationCompletion?(false)
             self.animationCompletion = nil
             self.runningAnimationsCount = 0
         }
@@ -52,7 +52,7 @@ class PieceForwardAnimator: AbstractPieceAnimator, PieceAnimator {
     
     //MARK: - Helpers
     
-    private func piecesInAnimationGroupCount(totalPiecesCount: Int) -> Int {
+    fileprivate func piecesInAnimationGroupCount(_ totalPiecesCount: Int) -> Int {
         if totalPiecesCount < 4 {
             return totalPiecesCount
         }
@@ -61,9 +61,9 @@ class PieceForwardAnimator: AbstractPieceAnimator, PieceAnimator {
     
     //MARK: - Interface
     
-    func addAnimationForPieces(pieces: [Piece], completion: PieceAnimatorCompletion? = nil) {
+    func addAnimationForPieces(_ pieces: [Piece], completion: PieceAnimatorCompletion? = nil) {
         if pieces.count == 0 {
-            completion?(finished: true)
+            completion?(true)
             return
         }
         self.animationCompletion = completion
@@ -76,7 +76,7 @@ class PieceForwardAnimator: AbstractPieceAnimator, PieceAnimator {
             let pieceDelay = Random.within(self.configuration.pieceAnimationDelay.minimumDelay...self.configuration.pieceAnimationDelay.maximumDelay) + groupDelay
             let animation = CAAnimation.basicForwardPieceAnimation(piece, velocity: self.configuration.animationVelocity, delay: pieceDelay, scale: self.configuration.animationScale)
             animation.delegate = self
-            piece.view.layer.addAnimation(animation, forKey: basicForwardPieceAnimationKey)
+            piece.view.layer.add(animation, forKey: basicForwardPieceAnimationKey)
             if indexInCurrentGroup == numberOfPiecesInCurrentGroup - 1 {
                 groupDelay += Random.within(self.configuration.pieceGroupAnimationDelay.minimumDelay...self.configuration.pieceGroupAnimationDelay.maximumDelay)
                 numberOfPiecesInCurrentGroup = self.piecesInAnimationGroupCount(pieces.count)
@@ -89,9 +89,9 @@ class PieceForwardAnimator: AbstractPieceAnimator, PieceAnimator {
         }
     }
     
-    func removeAnimationFromPieces(pieces: [Piece]) {
+    func removeAnimationFromPieces(_ pieces: [Piece]) {
         for piece in pieces {
-            piece.view.layer.removeAnimationForKey(basicForwardPieceAnimationKey)
+            piece.view.layer.removeAnimation(forKey: basicForwardPieceAnimationKey)
         }
     }
 }
@@ -100,7 +100,7 @@ class PieceBackwardAnimator: AbstractPieceAnimator, PieceAnimator {
     
     //MARK: - Helpers
     
-    private func piecesInAnimationGroupCount(totalPiecesCount: Int) -> Int {
+    fileprivate func piecesInAnimationGroupCount(_ totalPiecesCount: Int) -> Int {
         if totalPiecesCount < 4 {
             return totalPiecesCount
         }
@@ -109,9 +109,9 @@ class PieceBackwardAnimator: AbstractPieceAnimator, PieceAnimator {
     
     //MARK: - Interface
     
-    func addAnimationForPieces(pieces: [Piece], completion: PieceAnimatorCompletion? = nil) {
+    func addAnimationForPieces(_ pieces: [Piece], completion: PieceAnimatorCompletion? = nil) {
         if pieces.count == 0 {
-            completion?(finished: true)
+            completion?(true)
             return
         }
         self.animationCompletion = completion
@@ -124,7 +124,7 @@ class PieceBackwardAnimator: AbstractPieceAnimator, PieceAnimator {
             let pieceDelay = Random.within(self.configuration.pieceAnimationDelay.minimumDelay...self.configuration.pieceAnimationDelay.maximumDelay) + groupDelay
             let animation = CAAnimation.basicBackwardPieceAnimation(piece, velocity: self.configuration.animationVelocity, delay: pieceDelay, scale: self.configuration.animationScale)
             animation.delegate = self
-            piece.view.layer.addAnimation(animation, forKey: basicBackwardPieceAnimationKey)
+            piece.view.layer.add(animation, forKey: basicBackwardPieceAnimationKey)
             if indexInCurrentGroup == numberOfPiecesInCurrentGroup - 1 {
                 groupDelay += Random.within(self.configuration.pieceGroupAnimationDelay.minimumDelay...self.configuration.pieceGroupAnimationDelay.maximumDelay)
                 numberOfPiecesInCurrentGroup = self.piecesInAnimationGroupCount(pieces.count)
@@ -137,10 +137,10 @@ class PieceBackwardAnimator: AbstractPieceAnimator, PieceAnimator {
         }
     }
     
-    func removeAnimationFromPieces(pieces: [Piece]) {
+    func removeAnimationFromPieces(_ pieces: [Piece]) {
         for piece in pieces {
-            piece.view.layer.removeAnimationForKey(basicBackwardPieceAnimationKey)
+            piece.view.layer.removeAnimation(forKey: basicBackwardPieceAnimationKey)
         }
-        self.animationCompletion?(finished: false)
+        self.animationCompletion?(false)
     }
 }

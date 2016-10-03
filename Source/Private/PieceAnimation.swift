@@ -12,22 +12,22 @@ extension CAAnimation {
     
     //MARK: - Interface
     
-    static func basicForwardPieceAnimation(piece: Piece, velocity: Double, delay: CFTimeInterval, scale: Double) -> CAAnimation {
-        func setDefaultValuesForAnimation(animation: CAAnimation) {
+    static func basicForwardPieceAnimation(_ piece: Piece, velocity: Double, delay: CFTimeInterval, scale: Double) -> CAAnimation {
+        func setDefaultValuesForAnimation(_ animation: CAAnimation) {
             animation.fillMode = kCAFillModeForwards
-            animation.removedOnCompletion = false
+            animation.isRemovedOnCompletion = false
             animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
         }
         
-        func setAnimationDurationBasedOnVelocity(animation: CAAnimation, velocity: Double) {
+        func setAnimationDurationBasedOnVelocity(_ animation: CAAnimation, velocity: Double) {
             animation.duration = 10.0 / velocity
         }
         
         let moveAnimation: CABasicAnimation = CABasicAnimation(keyPath: "position")
         setDefaultValuesForAnimation(moveAnimation)
         setAnimationDurationBasedOnVelocity(moveAnimation, velocity: velocity)
-        moveAnimation.fromValue = NSValue(CGPoint: piece.initialPosition)
-        moveAnimation.toValue = NSValue(CGPoint: piece.desiredPosition)
+        moveAnimation.fromValue = NSValue(cgPoint: piece.initialPosition)
+        moveAnimation.toValue = NSValue(cgPoint: piece.desiredPosition)
         moveAnimation.timingFunction = CAMediaTimingFunction(controlPoints: 0.0, 0.84, 0.49, 1.00)
         
         let scaleAnimation: CABasicAnimation = CABasicAnimation(keyPath: "transform.scale")
@@ -46,22 +46,22 @@ extension CAAnimation {
         return forwardAnimation
     }
     
-    static func basicBackwardPieceAnimation(piece: Piece, velocity: Double, delay: CFTimeInterval, scale: Double) -> CAAnimation {
-        func setDefaultValuesForAnimation(animation: CAAnimation) {
+    static func basicBackwardPieceAnimation(_ piece: Piece, velocity: Double, delay: CFTimeInterval, scale: Double) -> CAAnimation {
+        func setDefaultValuesForAnimation(_ animation: CAAnimation) {
             animation.fillMode = kCAFillModeForwards
-            animation.removedOnCompletion = false
+            animation.isRemovedOnCompletion = false
             animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
         }
         
-        func setAnimationDurationBasedOnVelocity(animation: CAAnimation, velocity: Double) {
+        func setAnimationDurationBasedOnVelocity(_ animation: CAAnimation, velocity: Double) {
             animation.duration = 10.0 / velocity
         }
         
         let moveAnimation: CABasicAnimation = CABasicAnimation(keyPath: "position")
         setDefaultValuesForAnimation(moveAnimation)
         setAnimationDurationBasedOnVelocity(moveAnimation, velocity: velocity)
-        moveAnimation.fromValue = NSValue(CGPoint: piece.initialPosition)
-        moveAnimation.toValue = NSValue(CGPoint: piece.desiredPosition)
+        moveAnimation.fromValue = NSValue(cgPoint: piece.initialPosition)
+        moveAnimation.toValue = NSValue(cgPoint: piece.desiredPosition)
         moveAnimation.timingFunction = CAMediaTimingFunction(controlPoints: 1.0, 0.0, 1.0, 0.67)
         
         let scaleAnimation: CABasicAnimation = CABasicAnimation(keyPath: "transform.scale")

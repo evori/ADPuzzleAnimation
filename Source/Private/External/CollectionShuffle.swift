@@ -8,13 +8,13 @@
 
 import UIKit
 
-extension MutableCollectionType where Index == Int {
+extension MutableCollection where Index == Int {
     /// Shuffle the elements of `self` in-place.
     mutating func shuffleInPlace() {
         // empty and single-element collections don't shuffle
         if count < 2 { return }
-        for i in 0..<count - 1 {
-            let j = Int(arc4random_uniform(UInt32(count - i))) + i
+        for i in 0..<Int(count.toIntMax()) - 1 {
+            let j = Int(arc4random_uniform(UInt32(Int(count.toIntMax()) - i))) + i
             guard i != j else { continue }
             swap(&self[i], &self[j])
         }

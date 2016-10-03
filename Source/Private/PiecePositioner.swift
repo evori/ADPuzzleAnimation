@@ -9,31 +9,31 @@
 import UIKit
 
 enum Corner {
-    case BottomLeft
-    case TopLeft
-    case BottomRight
-    case TopRight
+    case bottomLeft
+    case topLeft
+    case bottomRight
+    case topRight
 }
 
 class PiecePositioner {
     
-    class func cornerForPosition(position: CGPoint, inRect rect: CGRect) -> Corner {
-        let middleX = CGRectGetMidX(rect)
-        let middleY = CGRectGetMidY(rect)
+    class func cornerForPosition(_ position: CGPoint, inRect rect: CGRect) -> Corner {
+        let middleX = rect.midX
+        let middleY = rect.midY
         if position.x < middleX {
             if position.y > middleY {
-                return .BottomLeft
+                return .bottomLeft
             }
             else {
-                return .TopLeft
+                return .topLeft
             }
         }
         else {
             if position.y < middleY {
-                return .TopRight
+                return .topRight
             }
             else {
-                return .BottomRight
+                return .bottomRight
             }
         }
     }
@@ -47,12 +47,12 @@ class PiecePositioner {
      
      - returns: initial top left point for the given piece view
      */
-    class func piecePositionOutsideOfView(piece: Piece, pieceWidth: CGFloat, fromView pieceContainerView: UIView, screenSize: CGSize = UIScreen.mainScreen().bounds.size, pieceScale: Double = 1) -> CGPoint {
+    class func piecePositionOutsideOfView(_ piece: Piece, pieceWidth: CGFloat, fromView pieceContainerView: UIView, screenSize: CGSize = UIScreen.main.bounds.size, pieceScale: Double = 1) -> CGPoint {
         let delta: CGFloat = pieceWidth * CGFloat(pieceScale)
-        let pieceContainerShiftInWindow = (pieceContainerView.superview == nil) ? pieceContainerView.frame.origin : pieceContainerView.convertPoint(CGPointZero, toView: nil)
+        let pieceContainerShiftInWindow = (pieceContainerView.superview == nil) ? pieceContainerView.frame.origin : pieceContainerView.convert(CGPoint.zero, to: nil)
         
         switch self.cornerForPosition(piece.originalPosition, inRect: pieceContainerView.bounds) {
-        case .TopLeft:
+        case .topLeft:
             if Random.generate() {
                 //Delta by horizontal
                 let x = -pieceContainerShiftInWindow.x - Random.within(0...delta) - delta
@@ -65,7 +65,7 @@ class PiecePositioner {
                 let y = -pieceContainerShiftInWindow.y - Random.within(0...delta) - delta
                 return CGPoint(x: x, y: y)
             }
-        case .TopRight:
+        case .topRight:
             if Random.generate() {
                 //Delta by horizontal
                 let x = (screenSize.width - pieceContainerShiftInWindow.x) + Random.within(0...delta) + delta
@@ -78,7 +78,7 @@ class PiecePositioner {
                 let y = -pieceContainerShiftInWindow.y - Random.within(0...delta) - delta
                 return CGPoint(x: x, y: y)
             }
-        case .BottomRight:
+        case .bottomRight:
             if Random.generate() {
                 //Delta by horizontal
                 let x = (screenSize.width - pieceContainerShiftInWindow.x) + Random.within(0...delta) + delta
@@ -91,7 +91,7 @@ class PiecePositioner {
                 let y = Random.within(0...delta) + (screenSize.height - pieceContainerShiftInWindow.y) + delta
                 return CGPoint(x: x, y: y)
             }
-        case .BottomLeft:
+        case .bottomLeft:
             if Random.generate() {
                 //Delta by horizontal
                 let x = -pieceContainerShiftInWindow.x - Random.within(0...delta) - delta

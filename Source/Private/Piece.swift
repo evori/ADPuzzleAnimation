@@ -30,9 +30,9 @@ class Piece: NSObject {
     
     init(pieceView: UIView) {
         view = pieceView
-        if view.layer.anchorPoint != CGPointZero {
+        if view.layer.anchorPoint != CGPoint.zero {
             let anchorDelta: CGPoint = view.layer.anchorPoint
-            view.layer.anchorPoint = CGPointZero
+            view.layer.anchorPoint = CGPoint.zero
             view.frame.origin = CGPoint(x: view.frame.origin.x - view.frame.width * anchorDelta.x, y: view.frame.origin.y - view.frame.height * anchorDelta.y)
             view.layer.position = view.frame.origin
         }

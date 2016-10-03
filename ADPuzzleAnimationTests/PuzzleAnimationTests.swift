@@ -32,7 +32,7 @@ class PuzzleAnimatorTests: XCTestCase {
     }
 
     func testThatOnStartItHidesViewToAnimate() {
-        self.viewToAnimate!.hidden = false
+        self.viewToAnimate!.isHidden = false
         self.puzzleAnimation?.start()
         expect(self.viewToAnimate!.hidden).to(beTrue())
     }
@@ -44,7 +44,7 @@ class PuzzleAnimatorTests: XCTestCase {
     }
     
     func testThatOnFinishItShowsViewToAnimate() {
-        self.viewToAnimate!.hidden = true
+        self.viewToAnimate!.isHidden = true
         self.puzzleAnimation?.stop()
         expect(self.viewToAnimate!.hidden).to(beFalse())
     }
